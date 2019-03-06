@@ -1,6 +1,9 @@
 package sample;
 
+import com.sun.javafx.binding.StringFormatter;
+
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
@@ -12,30 +15,36 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import sample.listener.ParseListener;
+import sample.util.ParseUtil;
 
 public class Controller implements Initializable {
 
+    // file A
     @FXML
-    private TextField mTextField_A;
+    private TextField mTF_sheetIndexA;
+    @FXML
+    private TextField mTF_columnIndexA;
+    @FXML
+    private TextArea mTextAreaA;
 
+    // file B
     @FXML
-    private TextField mTextField_B;
-
+    private TextField mTF_sheetIndexB;
     @FXML
-    private TextArea mTextArea_1;
-
+    private TextField mTF_columnIndexB;
     @FXML
-    private TextArea mTextArea_2;
+    private TextArea mTextAreaB;
 
     private OnDragOverEvent mOnDragOverEvent = new OnDragOverEvent();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        mTextArea_1.setOnDragOver(mOnDragOverEvent);
-        mTextArea_1.setOnDragDropped(new OnDragDroppedEvent(mTextArea_1));
-        mTextArea_2.setOnDragOver(mOnDragOverEvent);
-        mTextArea_2.setOnDragDropped(new OnDragDroppedEvent(mTextArea_2));
+        mTextAreaA.setOnDragOver(mOnDragOverEvent);
+        mTextAreaA.setOnDragDropped(new OnDragDroppedEvent(mTextAreaA));
+        mTextAreaB.setOnDragOver(mOnDragOverEvent);
+        mTextAreaB.setOnDragDropped(new OnDragDroppedEvent(mTextAreaB));
     }
 
     private class OnDragOverEvent implements EventHandler<DragEvent> {
@@ -63,7 +72,8 @@ public class Controller implements Initializable {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasFiles()) {
-                textArea.setText(db.getFiles().toString());
+                textArea.setText(db.getFiles().toString().replace("[", "").replace("]", ""));
+
                 success = true;
             }
             /* let the source know whether the string was successfully
@@ -71,6 +81,30 @@ public class Controller implements Initializable {
             event.setDropCompleted(success);
 
             event.consume();
+        }
+    }
+
+    @FXML
+    private void handleClickDoAction() {
+        System.out.println("点击");
+
+        String fileNameA = mTextAreaA.getText();
+
+        try {
+            if ((fileNameA.endsWith(".xls") || fileNameA.endsWith(".xlsx"))) {
+
+                ParseUtil.parseSheetInExcel(fileNameA, 0, new ParseListenerImp());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public class ParseListenerImp implements ParseListener {
+
+        @Override
+        public void onParseCompleted(List<Object> data) {
+            System.out.println("111");
         }
     }
 }
