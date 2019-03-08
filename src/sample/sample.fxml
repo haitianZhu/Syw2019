@@ -32,28 +32,32 @@
              <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                  <children>
                      <Label fx:id="mLabel_2" text="步骤2 将B文件拖拽至空白框内" />
-                     <TextArea fx:id="mTextAreaB" editable="false" prefHeight="200.0" prefWidth="200.0"
-                               wrapText="true" />
+                     <TextArea fx:id="mTextAreaB" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
                  </children>
              </VBox>
              <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                  <children>
                      <Label text="选择A文件的第几个sheet去匹配？" />
-                     <TextField fx:id="mTF_sheetIndexA" prefWidth="100.0" />
+                     <TextField fx:id="mTF_sheetIndexA" prefWidth="100.0" text="1" />
                  </children>
                  <children>
                      <Label text="选择A文件的第几列去匹配？" />
-                     <TextField fx:id="mTF_columnIndexA" prefWidth="100.0" />
+                     <TextField fx:id="mTF_columnIndexA" prefWidth="100.0" text="3" />
                  </children>
              </VBox>
              <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                  <children>
                      <Label text="选择B文件的第几个sheet去匹配？" />
-                     <TextField fx:id="mTF_sheetIndexB" prefWidth="100.0" />
+                     <TextField fx:id="mTF_sheetIndexB" prefWidth="100.0" text="1" />
                  </children>
                  <children>
                      <Label text="选择B文件的第几列去匹配？" />
-                     <TextField fx:id="mTF_columnIndexB" prefWidth="100.0" />
+                     <TextField fx:id="mTF_columnIndexB" prefWidth="100.0" text="9" />
+                 </children>
+
+                 <children>
+                     <Label text="匹配字数？" />
+                     <TextField fx:id="mTF_matchCount" prefWidth="100.0" text="6" />
                  </children>
              </VBox>
          </children>
